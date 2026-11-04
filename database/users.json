@@ -1,0 +1,12 @@
+{
+  "U001": {
+    "name": "Arpit Kushwaha",
+    "role": "user",
+    "email": "arpit@example.com"
+  },
+  "U002": {
+    "name": "John Doe",
+    "role": "admin",
+    "email": "john@example.com"
+  }
+}

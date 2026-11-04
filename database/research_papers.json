@@ -1,0 +1,47 @@
+{
+    "P001": {
+        "title": "Attention Is All You Need",
+        "abstract": "A paper introducing the Transformer architecture, which relies entirely on attention mechanisms.",
+        "authors": ["A001", "A002"],
+        "publication_year": 2017,
+        "category": "NLP",
+        "uploaded_by": "U001",
+        "is_public": true
+    },
+    "P002": {
+        "title": "Deep Residual Learning for Image Recognition",
+        "abstract": "A paper introducing residual networks, which enable the training of very deep neural networks.",
+        "authors": ["A003"],
+        "publication_year": 2015,
+        "category": "Computer Vision",
+        "uploaded_by": "U001",
+        "is_public": true
+    },
+    "P003": {
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers",
+        "abstract": "A method for pre-training deep bidirectional representations from unlabeled text.",
+        "authors": ["A001"],
+        "publication_year": 2018,
+        "category": "NLP",
+        "uploaded_by": "U001",
+        "is_public": true
+    },
+    "P004": {
+        "title": "Language Models are Few-Shot Learners",
+        "abstract": "A study of large language models demonstrating few-shot learning capabilities.",
+        "authors": ["A002"],
+        "publication_year": 2020,
+        "category": "NLP",
+        "uploaded_by": "U002",
+        "is_public": true
+    },
+    "P005": {
+        "title": "Generative Adversarial Networks",
+        "abstract": "A framework for training generative models using an adversarial process.",
+        "authors": ["A003"],
+        "publication_year": 2014,
+        "category": "Deep Learning",
+        "uploaded_by": "U002",
+        "is_public": true
+    }
+}

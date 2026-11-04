@@ -1,0 +1,17 @@
+{
+  "A001": {
+    "name": "Andrew Ng",
+    "affiliation": "Stanford University",
+    "email": "andrew.ng@example.com"
+  },
+  "A002": {
+    "name": "Geoffrey Hinton",
+    "affiliation": "University of Toronto",
+    "email": "geoffrey.hinton@example.com"
+  },
+  "A003": {
+    "name": "Yoshua Bengio",
+    "affiliation": "University of Montreal",
+    "email": "yoshua.bengio@example.com"
+  }
+}

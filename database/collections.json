@@ -1,0 +1,22 @@
+{
+  "C001": {
+    "name": "Deep Learning Papers",
+    "user_id": "U001",
+    "paper_ids": ["P001", "P002"]
+  },
+  "C002": {
+    "name": "Natural Language Processing",
+    "user_id": "U001",
+    "paper_ids": ["P003", "P004"]
+  },
+  "C003": {
+    "name": "Computer Vision Research",
+    "user_id": "U002",
+    "paper_ids": ["P005"]
+  },
+  "C004": {
+    "name": "Papers to Read Later",
+    "user_id": "U002",
+    "paper_ids": []
+  }
+}

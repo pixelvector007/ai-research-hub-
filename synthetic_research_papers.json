@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "Attention-Based Neural Networks for Language Understanding",
+        "abstract": "This paper explores attention mechanisms for improving contextual understanding in natural language processing tasks.",
+        "authors": ["A. Sharma", "R. Verma"],
+        "publication_year": 2024,
+        "category": "NLP",
+        "uploaded_by": 1,
+        "is_public": true
+    },
+    {
+        "id": 2,
+        "title": "Efficient Transformer Architectures for Large Language Models",
+        "abstract": "This study investigates architectural modifications that reduce computational requirements while maintaining model performance.",
+        "authors": ["K. Mehta", "S. Rao"],
+        "publication_year": 2025,
+        "category": "Deep Learning",
+        "uploaded_by": 1,
+        "is_public": true
+    },
+    {
+        "id": 3,
+        "title": "Retrieval-Augmented Generation for Scientific Knowledge Discovery",
+        "abstract": "This research presents a retrieval-augmented generation framework for extracting relevant information from scientific literature.",
+        "authors": ["P. Singh", "M. Kapoor"],
+        "publication_year": 2025,
+        "category": "LLM",
+        "uploaded_by": 2,
+        "is_public": false
+    },
+    {
+        "id": 4,
+        "title": "A Comparative Study of Neural Network Optimization Techniques",
+        "abstract": "This paper compares multiple optimization algorithms and evaluates their effects on convergence speed and model accuracy.",
+        "authors": ["R. Gupta", "A. Mishra"],
+        "publication_year": 2023,
+        "category": "Machine Learning",
+        "uploaded_by": 2,
+        "is_public": true
+    },
+    {
+        "id": 5,
+        "title": "Lightweight Models for Edge-Based Artificial Intelligence",
+        "abstract": "This study examines model compression techniques for deploying machine learning systems on resource-constrained devices.",
+        "authors": ["V. Kumar", "N. Patel"],
+        "publication_year": 2024,
+        "category": "Computer Vision",
+        "uploaded_by": 3,
+        "is_public": false
+    }
+]

@@ -12,13 +12,14 @@ router = APIRouter(prefix="/authors")
 def view(data=Depends(get_author_data)):
     return [{"id": author_id, **author_info} for author_id, author_info in data.items()]
 
+
 @router.get("/author/{author_id}", response_model=Author)
 def view_author(
     author_id: str = Path(
         ..., description="Unique ID of the author", examples=["A001"]
     ),
     data=Depends(get_author_data),
-) : 
+):
     if author_id in data:
         return {"id": author_id, **data[author_id]}
     raise HTTPException(status_code=404, detail="Author Not Found")
@@ -28,6 +29,10 @@ def view_author(
 def create_author(author: Author, data=Depends(get_author_data)):
     if author.id in data:
         raise HTTPException(status_code=400, detail="Author Already Exists")
+    if any(user_values["email"] == author.email for user_values in data.values()):
+        raise HTTPException(
+            status_code=409, detail="Email Already Exists. Please Login"
+        )
     data[author.id] = author.model_dump(exclude={"id"})
     save_data(AUTHORS_FILE, data)
     return author
@@ -43,11 +48,20 @@ def update_author(
 ):
     if author_id not in data:
         raise HTTPException(status_code=404, detail="Author Not Found")
+
     existing_author_info = data[author_id]
     updated_author_info = author_update.model_dump(exclude_unset=True)
+
+    if "email" in updated_author_info and any(
+        updated_author_info["email"] == user_values["email"] and user_keys != author_id
+        for user_keys, user_values in data.items()
+    ):
+        raise HTTPException(status_code=409, detail="Email Already Exists")
+
     existing_author_info.update(updated_author_info)
     data[author_id] = existing_author_info
     save_data(AUTHORS_FILE, data)
+
     return {"id": author_id, **existing_author_info}
 
 

@@ -29,8 +29,10 @@ def create_user(user: User, data=Depends(get_user_data)):
     data[user.id] = user.model_dump(exclude={"id"})
 
     if any(user.email == user_info["email"] for user_info in data.values()):
-        raise HTTPException(status_code=400,detail="Email Already Exists. Please Login")
-    
+        raise HTTPException(
+            status_code=400, detail="Email Already Exists. Please Login"
+        )
+
     save_data(USERS_FILE, data)
     return user
 
@@ -45,11 +47,16 @@ def update_user(
         raise HTTPException(status_code=404, detail="User Not Found")
     existing_user_info = data[user_id]
     updated_user_info = update_user.model_dump(exclude_unset=True)
-    if ("email" in updated_user_info) and (any(updated_user_info["email"]==user_data["email"] for user_data in data.values())) :
-        if data[user_id]["email"] == updated_user_info["email"] : 
-            pass 
-        else : 
-            raise HTTPException(status_code=409,detail="Email Already Exists")
+    if ("email" in updated_user_info) and (
+        any(
+            updated_user_info["email"] == user_data["email"]
+            for user_data in data.values()
+        )
+    ):
+        if data[user_id]["email"] == updated_user_info["email"]:
+            pass
+        else:
+            raise HTTPException(status_code=409, detail="Email Already Exists")
     existing_user_info.update(updated_user_info)
     data[user_id] = existing_user_info
     save_data(USERS_FILE, data)

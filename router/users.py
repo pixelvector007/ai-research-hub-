@@ -2,13 +2,14 @@ from fastapi import APIRouter, Path, HTTPException, Depends
 from models.user import User, UpdateUser
 from utils.json_handler import USERS_FILE, save_data
 from dependencies.data import get_user_data
+from typing import List
 
 router = APIRouter(prefix="/users")
 
 
-@router.get("/view")
+@router.get("/view", response_model=List[User])
 def view(data=Depends(get_user_data)):
-    return data
+    return [{"id": user_id, **user_info} for user_id, user_info in data.items()]
 
 
 @router.get("/user/{user_id}", response_model=User)

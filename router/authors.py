@@ -3,14 +3,14 @@ from fastapi.responses import JSONResponse
 from models.author import Author, UpdateAuthor
 from utils.json_handler import AUTHORS_FILE, save_data
 from dependencies.data import get_author_data
+from typing import List
 
 router = APIRouter(prefix="/authors")
 
 
-@router.get("/view")
+@router.get("/view", response_model=List[Author])
 def view(data=Depends(get_author_data)):
-    return data
-
+    return [{"id": author_id, **author_info} for author_id, author_info in data.items()]
 
 @router.get("/author/{author_id}", response_model=Author)
 def view_author(
@@ -18,7 +18,7 @@ def view_author(
         ..., description="Unique ID of the author", examples=["A001"]
     ),
     data=Depends(get_author_data),
-):
+) : 
     if author_id in data:
         return {"id": author_id, **data[author_id]}
     raise HTTPException(status_code=404, detail="Author Not Found")

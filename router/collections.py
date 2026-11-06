@@ -2,13 +2,14 @@ from fastapi import APIRouter, Path, HTTPException, Depends
 from models.collections import Collection, UpdateCollection
 from utils.json_handler import COLLECTIONS_FILE, save_data
 from dependencies.data import get_collection_data
+from typing import List
 
 router = APIRouter(prefix="/collections")
 
 
-@router.get("/view")
+@router.get("/view", response_model=List[Collection])
 def view(data=Depends(get_collection_data)):
-    return data
+    return [{"id": collection_id, **collection_info} for collection_id, collection_info in data.items()]
 
 
 @router.get("/view/{collection_id}", response_model=Collection)

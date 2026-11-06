@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, EmailStr
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 
 
 class User(BaseModel):
@@ -21,3 +21,18 @@ class User(BaseModel):
         Field(..., description="Role of the user", examples=["user"]),
     ]
     email: EmailStr
+
+
+class UpdateUser(BaseModel):
+
+    name: Annotated[
+        Optional[str],
+        Field(
+            default=None,
+            description="Name of the user",
+            examples=["Arpit Kushwaha"],
+            max_length=25,
+        ),
+    ]
+    role: Optional[Literal["user", "moderator", "admin"]] = None
+    email: Optional[EmailStr] = None

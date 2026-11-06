@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from router.authors import router as author_router
+from router.users import router as user_router
+from router.collections import router as collection_router 
 
 app = FastAPI(
     title="AI Research Hub",
@@ -39,3 +42,6 @@ def version():
         "version": "1.0.0"
     }
 
+app.include_router(author_router)
+app.include_router(user_router)
+app.include_router(collection_router)

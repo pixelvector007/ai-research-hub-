@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Path, HTTPException, Depends
-from fastapi.responses import JSONResponse
 from models.author import Author, UpdateAuthor
 from utils.json_handler import AUTHORS_FILE, save_data
 from dependencies.data import get_author_data
@@ -28,7 +27,7 @@ def view_author(
 @router.post("/create", response_model=Author, status_code=201)
 def create_author(author: Author, data=Depends(get_author_data)):
     if author.id in data:
-        raise HTTPException(status_code=400, detail="Author Already Exists")
+        raise HTTPException(status_code=409, detail="Author Already Exists")
     if any(user_values["email"] == author.email for user_values in data.values()):
         raise HTTPException(
             status_code=409, detail="Email Already Exists. Please Login"

@@ -36,7 +36,7 @@ def create_research_paper(
     user_data=Depends(get_user_data),
 ):
     if research_paper.id in data:
-        raise HTTPException(status_code=400, detail="Research Paper Already Exists")
+        raise HTTPException(status_code=409, detail="Research Paper Already Exists")
 
     if research_paper.uploaded_by not in user_data:
 

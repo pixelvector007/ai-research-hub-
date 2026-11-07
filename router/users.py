@@ -25,14 +25,14 @@ def view_user(
 @router.post("/create", response_model=User, status_code=201)
 def create_user(user: User, data=Depends(get_user_data)):
     if user.id in data:
-        raise HTTPException(status_code=400, detail="User Already Exists")
-    data[user.id] = user.model_dump(exclude={"id"})
+        raise HTTPException(status_code=409, detail="User Already Exists")
 
     if any(user.email == user_info["email"] for user_info in data.values()):
         raise HTTPException(
-            status_code=400, detail="Email Already Exists. Please Login"
+            status_code=409, detail="Email Already Exists. Please Login"
         )
 
+    data[user.id] = user.model_dump(exclude={"id"})
     save_data(USERS_FILE, data)
     return user
 

@@ -1,8 +1,12 @@
 from fastapi import APIRouter, Path, HTTPException, Depends
 from typing import List
 from models.research_paper import ResearchPaper, UpdateResearchPaper
-from utils.json_handler import RESEARCH_PAPERS_FILE, save_data
-from dependencies.data import get_research_paper_data, get_user_data
+from utils.json_handler import RESEARCH_PAPERS_FILE, save_data, COLLECTIONS_FILE
+from dependencies.data import (
+    get_research_paper_data,
+    get_user_data,
+    get_collection_data,
+)
 
 router = APIRouter(prefix="/research-papers")
 
@@ -79,11 +83,19 @@ def delete_research_paper(
         ..., description="Unique ID of the research paper", examples=["P001"]
     ),
     data=Depends(get_research_paper_data),
+    collection_data=Depends(get_collection_data),
 ):
     if paper_id not in data:
         raise HTTPException(status_code=404, detail="Research Paper Not Found")
 
+    for collection_id in collection_data.keys():
+
+        if paper_id in collection_data[collection_id]["paper_ids"]:
+
+            collection_data[collection_id]["paper_ids"].remove(paper_id)
+
     del data[paper_id]
     save_data(RESEARCH_PAPERS_FILE, data)
+    save_data(COLLECTIONS_FILE, collection_data)
 
     return {"message": "Research Paper Deleted Successfully"}

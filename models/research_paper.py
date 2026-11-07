@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, StringConstraints, StrictBool
 from typing import Annotated, List, Optional
 from enums import ResearchCategory
+from datetime import date
 
 
 class ResearchPaper(BaseModel):
@@ -36,13 +37,13 @@ class ResearchPaper(BaseModel):
         examples=[["Ashish Vaswani", "Noam Shazeer"]],
     )
     publication_year: Annotated[
-        int,
+        Optional[int],
         Field(
-            ...,
+            default=None,
             description="Year in which the research paper was published",
             examples=[2017],
             gt=0,
-            lt=2027,
+            le=date.today().year,
         ),
     ]
     category: Annotated[

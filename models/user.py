@@ -61,3 +61,8 @@ class UserCreate(BaseModel):
 
 class UserInDB(User):
     hashed_password: str
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str

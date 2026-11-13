@@ -4,7 +4,7 @@ from utils.json_handler import USERS_FILE, save_data
 from dependencies.data import get_user_data
 from typing import List
 from models.user import User, UserCreate, UserInDB, UserLogin
-from utils.security import hash_password, verify_password
+from utils.security import hash_password, verify_password, create_access_token
 
 router = APIRouter(prefix="/users")
 
@@ -83,24 +83,23 @@ def register_user(user: UserCreate, data=Depends(get_user_data)):
         raise HTTPException(status_code=409, detail="User Already Exists")
 
     if any(user.email == user_info["email"] for user_info in data.values()):
-        raise HTTPException(status_code=409, detail="Email Already Exists. Please Login")
+        raise HTTPException(
+            status_code=409, detail="Email Already Exists. Please Login"
+        )
 
     new_user = UserInDB(
         id=user.id,
         name=user.name,
         role="user",
         email=user.email,
-        hashed_password=hash_password(user.password)
+        hashed_password=hash_password(user.password),
     )
 
     data[user.id] = new_user.model_dump(exclude={"id"})
     save_data(USERS_FILE, data)
 
     return User(
-        id=new_user.id,
-        name=new_user.name,
-        role=new_user.role,
-        email=new_user.email
+        id=new_user.id, name=new_user.name, role=new_user.role, email=new_user.email
     )
 
 
@@ -115,7 +114,7 @@ def login_user(user: UserLogin, data=Depends(get_user_data)):
         None,
     )
 
-    if user_record is None :
+    if user_record is None:
         raise HTTPException(status_code=401, detail="Invalid Email or Password")
 
     user_id, user_info = user_record
@@ -123,5 +122,6 @@ def login_user(user: UserLogin, data=Depends(get_user_data)):
     if not verify_password(user.password, user_info["hashed_password"]):
         raise HTTPException(status_code=401, detail="Invalid Email or Password")
 
-    return {"message": "Login Successful", "user_id": user_id}
+    access_token = create_access_token({"sub": user_id})
 
+    return {"access_token": access_token, "token_type": "bearer"}

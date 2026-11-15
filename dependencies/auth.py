@@ -37,3 +37,5 @@ def get_current_user(
     user_info = data[user_id]
 
     return User(id=user_id, **user_info)
+
+

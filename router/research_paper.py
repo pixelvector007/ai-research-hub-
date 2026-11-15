@@ -7,6 +7,8 @@ from dependencies.data import (
     get_user_data,
     get_collection_data,
 )
+from dependencies.auth import get_current_user
+from models.user import User
 
 router = APIRouter(prefix="/research-papers")
 
@@ -34,6 +36,7 @@ def create_research_paper(
     research_paper: ResearchPaper,
     data=Depends(get_research_paper_data),
     user_data=Depends(get_user_data),
+    current_user: User = Depends(get_current_user),
 ):
     if research_paper.id in data:
         raise HTTPException(status_code=409, detail="Research Paper Already Exists")
@@ -56,6 +59,7 @@ def update_research_paper(
     ),
     data=Depends(get_research_paper_data),
     user_data=Depends(get_user_data),
+    current_user: User = Depends(get_current_user),
 ):
     if paper_id not in data:
         raise HTTPException(status_code=404, detail="Research Paper Not Found")
@@ -84,6 +88,7 @@ def delete_research_paper(
     ),
     data=Depends(get_research_paper_data),
     collection_data=Depends(get_collection_data),
+    current_user: User = Depends(get_current_user)
 ):
     if paper_id not in data:
         raise HTTPException(status_code=404, detail="Research Paper Not Found")

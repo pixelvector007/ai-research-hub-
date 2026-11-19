@@ -88,7 +88,7 @@ def delete_research_paper(
     ),
     data=Depends(get_research_paper_data),
     collection_data=Depends(get_collection_data),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     if paper_id not in data:
         raise HTTPException(status_code=404, detail="Research Paper Not Found")
